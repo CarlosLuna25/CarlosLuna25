@@ -18,7 +18,7 @@
 
 ## 🌍 Acerca de mí
 - 💬 Idiomas: Español nativo, inglés básico
-- 🧠 Siempre aprendiendo algo nuevo, especialmente IA y tecnologías emergentes
+- 🧠 Siempre aprendiendo algo nuevo
 - ⚡ Me encanta automatizar tareas, optimizar procesos y escribir código limpio
 
 ## 📫 ¿Quieres contactarme?
