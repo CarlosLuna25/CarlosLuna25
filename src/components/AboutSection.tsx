@@ -126,7 +126,7 @@ export const AboutSection = () => {
                   </svg> */}
                   <div className="bg-transparent w-70 h-70 rounded-2xl overflow-hidden flex items-center justify-center">
                     <img
-                      src="/Avatar2.png"
+                      src="./Avatar2.png"
                       alt="Carlos Luna - Ingeniero en Sistemas y Full Stack Developer"
                       width="280"
                       height="280"
