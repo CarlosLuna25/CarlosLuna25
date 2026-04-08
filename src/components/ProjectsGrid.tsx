@@ -1,5 +1,31 @@
 // SOLID: Single Responsibility - Grid de proyectos destacados
+import { useRef } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+
 export const ProjectsGrid = () => {
+  const containerRef = useRef<HTMLElement>(null);
+
+  useGSAP(() => {
+    let mm = gsap.matchMedia();
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      gsap.from(".project-card", {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 80%",
+        },
+        y: 50,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out"
+      });
+    });
+  }, { scope: containerRef });
+
   const projects = [
     {
       id: 1,
@@ -21,7 +47,7 @@ export const ProjectsGrid = () => {
   ];
 
   return (
-    <section id="proyectos" className="max-w-7xl mx-auto mb-24 px-4 md:px-8 lg:px-12 scroll-mt-24">
+    <section ref={containerRef} id="proyectos" className="max-w-7xl mx-auto mb-24 px-4 md:px-8 lg:px-12 scroll-mt-24">
       <div className="flex justify-between items-end mb-12">
         <div>
           <h2 className="text-3xl font-bold mb-2 scroll-mt-24" style={{ textWrap: 'balance' }}>Proyectos Destacados</h2>
@@ -39,7 +65,7 @@ export const ProjectsGrid = () => {
         {projects.map((project) => (
           <button 
             key={project.id} 
-            className="group cursor-pointer text-left w-full"
+            className="project-card group cursor-pointer text-left w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan rounded-3xl"
             onClick={() => console.log(`Ver proyecto: ${project.title}`)}
             aria-label={`Ver detalles del proyecto ${project.title}`}
           >

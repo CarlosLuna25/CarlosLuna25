@@ -1,31 +1,42 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg-dark: #050505;
-  --color-accent-cyan: #00f2ff;
-  --color-accent-purple: #7000ff;
+  /* Bitget Theme Core Colors */
+  --color-bg-dark: #060e20; /* was #050505 */
+  --color-accent-cyan: #7bd0ff; /* primary */
+  --color-accent-purple: #9bffce; /* tertiary for contrast */
   
-  --color-midnight-900: #0a0a0a;
-  --color-midnight-800: #121218;
-  --color-midnight-700: #1a1a24;
+  --color-surface: #060e20;
+  --color-surface-container-low: #06122d;
+  --color-surface-container: #05183c;
+  --color-surface-container-high: #031d4b;
+  --color-surface-bright: #002867;
   
-  --color-neon-cyan: #00f2ff;
-  --color-neon-violet: #7000ff;
-  --color-neon-pink: #ff00e5;
+  --color-error: #ee7d77;
+  
+  --color-midnight-900: #031d4b;
+  --color-midnight-800: #05183c;
+  --color-midnight-700: #06122d;
+  
+  --color-neon-cyan: #7bd0ff;
+  --color-neon-violet: #97d8ff;
+  --color-neon-pink: #ee7d77;
 
+  --font-family-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-family-mono: 'Fira Code', monospace;
+  --font-family-display: 'Manrope', 'Inter', sans-serif;
 }
 
 @layer base {
   html {
     color-scheme: dark;
-    -webkit-tap-highlight-color: rgba(0, 242, 255, 0.2);
+    -webkit-tap-highlight-color: rgba(123, 208, 255, 0.2);
   }
 
   body {
-    background-color: #050505;
-    color: white;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--color-bg-dark);
+    color: #dee5ff; /* on-surface */
+    font-family: var(--font-family-sans);
     overflow-x: hidden;
   }
 
@@ -60,6 +71,8 @@
   
   /* Typography improvements */
   h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-display);
+    color: #faf8ff; /* on-surface or inverse-surface */
     text-wrap: balance;
   }
 }

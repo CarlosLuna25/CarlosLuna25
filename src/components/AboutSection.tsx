@@ -1,9 +1,45 @@
 import { FaCloud, FaCode, FaLaravel, FaNodeJs, FaReact } from "react-icons/fa6";
 import { RiNextjsFill } from "react-icons/ri";
 import { SiNestjs, SiTypescript } from "react-icons/si";
+import { useRef } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 // SOLID: Single Responsibility - Sección "Sobre Mí"
 export const AboutSection = () => {
+  const containerRef = useRef<HTMLElement>(null);
+
+  useGSAP(() => {
+    let mm = gsap.matchMedia();
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      // Intro animations
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 70%",
+        }
+      });
+      tl.from(".about-text", { y: 30, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power3.out" })
+        .from(".about-stat", { y: 20, opacity: 0, duration: 0.5, stagger: 0.1, ease: "power2.out" }, "-=0.4")
+        .from(".about-skill", { scale: 0.8, opacity: 0, duration: 0.4, stagger: 0.05, ease: "back.out(1.7)" }, "-=0.4");
+        
+      // Image animation
+      gsap.from(".about-image", {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 60%",
+        },
+        x: 50,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out"
+      });
+    });
+  }, { scope: containerRef });
+
   const stats = [
     { value: '5+', label: 'Años de Experiencia' },
     { value: '50+', label: 'Proyectos Completados' },
@@ -22,7 +58,7 @@ export const AboutSection = () => {
   ];
 
   return (
-    <section id="sobre-mi" className="max-w-7xl mx-auto mb-24 px-4 md:px-8 lg:px-12 scroll-mt-24">
+    <section ref={containerRef} id="sobre-mi" className="max-w-7xl mx-auto mb-24 px-4 md:px-8 lg:px-12 scroll-mt-24">
       <div className="glass-card p-8 md:p-12 lg:p-16 relative overflow-hidden">
         {/* Decorative Lines */}
         <div className="absolute top-12 right-12 w-16 h-16 border-t-2 border-r-2 border-accent-cyan opacity-30" aria-hidden="true" />
@@ -33,13 +69,13 @@ export const AboutSection = () => {
           <div className="space-y-8">
             {/* Header */}
             <div>
-              <span className="text-gray-500 uppercase tracking-widest text-sm font-mono">
+              <span className="about-text text-gray-500 uppercase tracking-widest text-sm font-mono block">
                 Hola
               </span>
-              <h2 className="text-5xl md:text-6xl font-black mt-2 mb-6 scroll-mt-24" style={{ textWrap: 'balance' }}>
+              <h2 className="about-text text-5xl md:text-6xl font-black mt-2 mb-6 scroll-mt-24" style={{ textWrap: 'balance' }}>
                 SOY <span className="gradient-text">CARLOS</span>
               </h2>
-              <p className="text-gray-300 text-lg leading-relaxed" style={{ textWrap: 'pretty' }}>
+              <p className="about-text text-gray-300 text-lg leading-relaxed" style={{ textWrap: 'pretty' }}>
                 Ingeniero en Sistemas apasionado por el desarrollo web. Especializado en
                 crear aplicaciones robustas y escalables con tecnologías modernas. Mi enfoque
                 se centra en escribir código limpio, mantener las mejores prácticas y entregar
@@ -52,10 +88,10 @@ export const AboutSection = () => {
               {stats.map((stat, index) => (
                 <div
                   key={index}
-                  className="flex items-center gap-4 group"
+                  className="about-stat flex items-center gap-4 group"
                 >
                   {/* Checkmark Circle */}
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-accent-cyan/10 border border-accent-cyan/30 flex items-center justify-center group-hover:bg-accent-cyan/20 transition-all duration-300">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-accent-cyan/10 border border-accent-cyan/30 flex items-center justify-center group-hover:bg-accent-cyan/20 transition-colors duration-300">
                     <svg
                       className="w-6 h-6 text-accent-cyan"
                       fill="none"
@@ -90,7 +126,7 @@ export const AboutSection = () => {
               {skills.map((skill) => (
                 <span
                   key={skill.name}
-                  className="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full text-sm font-mono border border-white/10 hover:border-accent-cyan/50 hover:bg-white/10 transition-all duration-300"
+                  className="about-skill flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full text-sm font-mono border border-white/10 hover:border-accent-cyan/50 hover:bg-white/10 transition-colors duration-300"
                 >
                   {skill.icon}
                   <span className="text-sm">{skill.name}</span>
@@ -100,7 +136,7 @@ export const AboutSection = () => {
           </div>
 
           {/* Right Side - Image/Visual */}
-          <div className="relative lg:pl-12">
+          <div className="about-image relative lg:pl-12">
             {/* Decorative Background Shape */}
             <div className="absolute -top-8 -right-8 w-64 h-64 bg-gradient-to-br from-accent-cyan/20 to-accent-purple/20 rounded-full blur-3xl -z-10" />
 
